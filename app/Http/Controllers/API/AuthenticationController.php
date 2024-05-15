@@ -60,32 +60,40 @@ class AuthenticationController extends Controller
                 'message' => 'login success',
                 'data' => $user,
                 'token' => $user->createToken('authToken')->accessToken    
-            ],401);
+            ]);
         }
     }
 
-    public function logout (){
-        
-        if(Auth::check()) {
-            $user = Auth::user();
-            $token = $user->token();
+    public function logout (Request $request){
+        $removeToken = $request->user()->tokens()->delete();
 
-            if($token) {
-                $token->revoke();
-
-                return response()->json([
-                    'message' => 'Logout Successfully'
-                ]);
-            } else {
-                return response()->json([
-                    'message' => 'Unable to revoke token'
-                ]);
-            }
-        } else {
+        if($removeToken) {
             return response()->json([
-                'message' => 'Logout failed, User not authenticated'
-            ],401);
+                'success' => true,
+                'message' => 'Logout Success!',  
+            ]);
         }
+
+        // if(Auth::check()) {
+        //     $user = Auth::user();
+        //     $token = $user->token();
+
+        //     if($token) {
+        //         $token->revoke();
+
+        //         return response()->json([
+        //             'message' => 'Logout Successfully'
+        //         ]);
+        //     } else {
+        //         return response()->json([
+        //             'message' => 'Unable to revoke token'
+        //         ]);
+        //     }
+        // } else {
+        //     return response()->json([
+        //         'message' => 'Logout failed, User not authenticated'
+        //     ],401);
+        // }
 
     }
 }
