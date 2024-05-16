@@ -2,8 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\AuthenticationController;
 use App\Htpp\Middleware\Authenticate;
+use App\Http\Controllers\API\AuthenticationController;
+use App\Http\Controllers\API\VehicleController;
 
 
 /*
@@ -27,6 +28,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthenticationController::class, 'register']);
 Route::post('/login', [AuthenticationController::class, 'login']);
-Route::delete('/logout',[AuthenticationController::class, 'logout'])->middleware('auth:api');;
+Route::delete('/logout',[AuthenticationController::class, 'logout'])->middleware('auth:api');
+
+Route::get('/vehicles', [VehicleController::class, 'index']);
+Route::get('/vehicles/{id}', [VehicleController::class, 'show']);
+Route::post('/vehicles', [VehicleController::class, 'store']);
+Route::put('/vehicles/{id}', [VehicleController::class, 'update']);
+Route::delete('/vehicles/{id}', [VehicleController::class, 'destroy']);
 
 
