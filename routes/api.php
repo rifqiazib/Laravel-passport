@@ -30,10 +30,12 @@ Route::post('/register', [AuthenticationController::class, 'register']);
 Route::post('/login', [AuthenticationController::class, 'login']);
 Route::delete('/logout',[AuthenticationController::class, 'logout'])->middleware('auth:api');
 
+Route::get('/vehicles/search', [VehicleController::class, 'search']);
 Route::get('/vehicles', [VehicleController::class, 'index']);
 Route::get('/vehicles/{id}', [VehicleController::class, 'show']);
 Route::post('/vehicles', [VehicleController::class, 'store']);
 Route::put('/vehicles/{id}', [VehicleController::class, 'update']);
 Route::delete('/vehicles/{id}', [VehicleController::class, 'destroy']);
+
 
 

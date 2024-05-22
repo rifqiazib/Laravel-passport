@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use App\Models\Vehicle;
@@ -124,5 +125,27 @@ class VehicleController extends Controller
                 'error' => 'Terjadi kesalahan saat menghapus data kendaraan'
             ], 500);
         }
+    }
+
+    public function search (Request $request) {
+        $query = Vehicle::query();
+        
+        $vehicle = $query->where(function (Builder $builder) use ($request) {
+            $licenseNumber = $request->input('license_number');
+            if($licenseNumber) {
+                $builder->where('license_number' , 'like', '%'. $licenseNumber . '%');
+            }
+
+            $type = $request->input('type');
+            if($type) {
+                $builder->where('type', 'like', '%' . $type . '%');
+            }
+        })->get();
+
+
+        return response()->json([
+            'success' => 'true',
+            'data' => $vehicle
+        ], 200);
     }
 }
