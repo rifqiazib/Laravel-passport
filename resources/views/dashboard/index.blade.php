@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    <nav></nav>
     <h1>ANDA BERHASIL LOGIN</h1>
     <a href="{{ route('logout') }}">LOGOUT</a>
 </body>
