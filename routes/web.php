@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VehicleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,8 @@ Route::get('forgot-password',[ForgotPasswordController::class, 'showLinkRequest'
 Route::post('forgot-password',[ForgotPasswordController::class, 'sendResetEmail'])->name('sendResetEmail');
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'showReset'])->name('password.reset');
 Route::post('reset-pasword', [ResetPasswordController::class, 'reset'])->name('reset');
+
+//Vehicle
+Route::get('vehicle',[VehicleController::class, 'index'])->name('vehicle');
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
